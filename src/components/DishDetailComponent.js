@@ -9,6 +9,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
+import {Link as RouterLink, useParams} from 'react-router-dom';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function DishCard({dish, classes}) {
-    return(
+
+    return (
         <Grid item xs={12} md={6}>
             <Card variant="outlined">
                 <CardActionArea>
@@ -71,13 +75,33 @@ function DishComments({comments, classes}) {
     );
 }
 
-export default function DishDetail({dishes, selectedDishId}) {
+export default function DishDetail({dishes, comments}) {
     const classes = useStyles();
-    const dish = dishes.filter((dish) => dish.id === selectedDishId)[0];
+
+    const {dishId} = useParams();
+    let dish = dishes.filter((dish) => dish.id === parseInt(dishId, 10))[0];
+    let commentList = comments.filter((comment) => comment.dishId === parseInt(dishId, 10));
+
     return (
-        <Grid className={classes.root} container spacing={2}>
+        <Grid container spacing={2} className={classes.root}>
+            <Grid item xs={12}>
+                <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="inherit" component={RouterLink} to="/">
+                        Home
+                    </Link>
+                    <Link color="inherit" component={RouterLink} to="/menu">
+                        Menu
+                    </Link>
+                    <Typography color="textPrimary">{dish.name}</Typography>
+                </Breadcrumbs>
+            </Grid>
+            <Grid item xs={12}>
+                <Typography variant="h4" align='left' component="h4">
+                    {dish.name}
+                </Typography>
+            </Grid>
             <DishCard dish={dish} classes={classes}/>
-            <DishComments comments={dish.comments} classes={classes}/>
+            <DishComments comments={commentList} classes={classes}/>
         </Grid>
     );
 }
