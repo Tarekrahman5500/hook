@@ -5,6 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from "@material-ui/core/Container";
 import { DISHES} from "./shared/dishes";
 import DishDetail from "./components/DishDetailComponent";
+import Footer from "./components/FooterComponent";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <MenuList dishes={dishes} setSelectedDishId={setSelectedDishId} />
           {(selectedDishId !== null) ? <DishDetail dishes={dishes} selectedDishId={selectedDishId} /> : null }
       </Container>
+        <Footer />
       </>
   );
 }
