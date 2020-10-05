@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import Home from "./components/HomeComponent";
 import NavBar from "./components/NavBar";
 import MenuList from "./components/MenuComponent";
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -6,6 +7,7 @@ import Container from "@material-ui/core/Container";
 import { DISHES} from "./shared/dishes";
 import DishDetail from "./components/DishDetailComponent";
 import Footer from "./components/FooterComponent";
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 function App() {
 
@@ -17,8 +19,16 @@ function App() {
       <CssBaseline />
       <NavBar />
       <Container fixed>
-          <MenuList dishes={dishes} setSelectedDishId={setSelectedDishId} />
-          {(selectedDishId !== null) ? <DishDetail dishes={dishes} selectedDishId={selectedDishId} /> : null }
+         <Switch>
+             <Route path='/home'>
+                 <Home />
+             </Route>
+             <Route path="/menu">
+                 <MenuList dishes={dishes} setSelectedDishId={setSelectedDishId} />
+                 {(selectedDishId !== null) ? <DishDetail dishes={dishes} selectedDishId={selectedDishId} /> : null }
+             </Route>
+             <Redirect to='/home' />
+         </Switch>
       </Container>
         <Footer />
       </>
