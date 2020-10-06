@@ -1,5 +1,6 @@
 import React from 'react';
 import Home from "./components/HomeComponent";
+import About from "./components/AboutComponent";
 import NavBar from "./components/NavBar";
 import MenuList from "./components/MenuComponent";
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -31,6 +32,9 @@ function App() {
                 <Switch>
                     <Route exact path='/home'>
                         <Home dishes={dishes} promotions={promotions} leaders={leaders}/>
+                    </Route>
+                    <Route exact path='/aboutus'>
+                        <About leaders={leaders} />
                     </Route>
                     <Route exact path='/menu'>
                         <MenuList dishes={dishes}/>
